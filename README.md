@@ -90,11 +90,11 @@ dx = x_t - x, \qquad dy = y_t - y, \qquad d = \sqrt{dx^2 + dy^2}
 $$
 
 $$
-\beta = \operatorname{atan2}(dy, dx)
+\beta = \text{atan2}(dy, dx)
 $$
 
 $$
-e_\theta = \operatorname{atan2}\big(\sin(\beta - \theta),\ \cos(\beta - \theta)\big)
+e_\theta = \text{atan2}\big(\sin(\beta - \theta),\ \cos(\beta - \theta)\big)
 $$
 
 Wrapping the error with `atan2(sin, cos)` keeps $e_\theta$ in $[-\pi, \pi]$. Without it, a target just across the $\pm\pi$ boundary would make the robot spin almost a full turn the long way round; with it, the robot always takes the shorter turn.
@@ -161,7 +161,7 @@ On entry, `BACK_OUT` stores the current position. The robot then reverses in a s
 1. **Align:** rotate in place toward $(0,0)$ with gain 20 and a minimum turn speed of 4, until $|e_\theta| < 0.08$ rad.
 2. **Drive:** the same point-navigation law as before, with $v = \min(24,\ 10 + 18d)$, a floor of 6, steering gain 14 and a clamp of $0.6v$. The exit happens at `HOME_RADIUS = 0.18 m`.
 3. **Final align:** rotate to heading 0 using
-   $e = \operatorname{atan2}(\sin(0-\theta), \cos(0-\theta))$, with gain `FINAL_TURN_GAIN = 18`. A counter tracks how many consecutive samples have $|e| < 0.15$ rad. The robot only moves on to `STOP` after **6 in a row**, so it does not stop while still oscillating through the target heading.
+   $e = \text{atan2}(\sin(0-\theta), \cos(0-\theta))$, with gain `FINAL_TURN_GAIN = 18`. A counter tracks how many consecutive samples have $|e| < 0.15$ rad. The robot only moves on to `STOP` after **6 in a row**, so it does not stop while still oscillating through the target heading.
 4. **Stop:** both wheel commands are held at 0 for the rest of the simulation.
 
 ### 3.7 Wall avoidance (`AVOID_WALL`)
